@@ -1,7 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-import Auth from '../../utils/auth';
+import React from "react";
+import { Link } from "react-router-dom";
+import Logo from "../../assets/Mojave2.png";
+import Auth from "../../utils/auth";
+import SearchIcon from "@material-ui/icons/Search";
+import CartIcon from "@material-ui/icons/ShoppingCart"
 
 const Header = () => {
   const logout = (event) => {
@@ -9,15 +11,31 @@ const Header = () => {
     Auth.logout();
   };
   return (
-    <header className="bg-primary text-light mb-4 py-3 flex-row align-center">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
-        <div>
-          <Link className="text-light" to="/">
-            <h1 className="m-0">Tech Thoughts</h1>
-          </Link>
-          <p className="m-0">Get into the mind of a programmer.</p>
+    <div className="header">
+      <div>
+        <Link to="/">
+          <img className="header_logo" src={Logo} alt="Mojave Logo" />
+        </Link>
+      </div>
+      <div className="header_search">
+        <input className="search_input" type="text" />
+        <SearchIcon className="header_searchIcon" />
+      </div>
+      <div className="header_nav">
+        <div className="header_option">
+          <span className="header_optionl1">Hello Guest</span>
+          <span className="header_optionl2">Sign In</span>
         </div>
-        <div>
+        <div className="header_option">
+          <span className="header_optionl1">Returns</span>
+          <span className="header_optionl2">& Orders</span>
+        </div>
+        <div className="header_optionCart">
+          <CartIcon />
+          <span className="header_optionl2 header_cartCount">0</span>
+        </div>
+      </div>
+      {/* <div>
           {Auth.loggedIn() ? (
             <>
               <Link className="btn btn-lg btn-info m-2" to="/me">
@@ -37,9 +55,8 @@ const Header = () => {
               </Link>
             </>
           )}
-        </div>
-      </div>
-    </header>
+        </div> */}
+    </div>
   );
 };
 
