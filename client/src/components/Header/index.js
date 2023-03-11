@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/Mojave2.png";
 import Auth from "../../utils/auth";
 import SearchIcon from "@material-ui/icons/Search";
-import CartIcon from "@material-ui/icons/ShoppingCart"
+import CartIcon from "@material-ui/icons/ShoppingCart";
 
 const Header = () => {
   const logout = (event) => {
@@ -30,10 +30,13 @@ const Header = () => {
           <span className="header_optionl1">Returns</span>
           <span className="header_optionl2">& Orders</span>
         </div>
-        <div className="header_optionCart">
-          <CartIcon />
-          <span className="header_optionl2 header_cartCount">0</span>
-        </div>
+
+        <Link to="/checkout">
+          <div className="header_optionCart">
+            <CartIcon />
+            <span className="header_optionl2 header_cartCount">0</span>
+          </div>
+        </Link>
       </div>
       {/* <div>
           {Auth.loggedIn() ? (
