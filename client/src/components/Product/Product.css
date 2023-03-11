@@ -40,9 +40,9 @@
 }
 
 .product > button {
-  background: rgb(255, 0, 217);
+  background: #e7064a;
   border: 1px solid;
   margin-top: 10px;
-  border-color: blueviolet;
-  color: aliceblue;
+  border-color:  #9c0216 #b40427 #d1051d;
+  color: whitesmoke;
 }
