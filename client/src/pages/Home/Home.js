@@ -1,6 +1,7 @@
 import React from "react";
-import Desert from "../assets/Desert.jpg";
-import Product from "../components/Product";
+import Desert from "../../assets/Desert.jpg";
+import Product from "../../components/Product";
+import "./Home.css";
 
 function Home() {
   return (

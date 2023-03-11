@@ -4,6 +4,7 @@ import Logo from "../../assets/Mojave2.png";
 import Auth from "../../utils/auth";
 import SearchIcon from "@material-ui/icons/Search";
 import CartIcon from "@material-ui/icons/ShoppingCart";
+import "./Header.css";
 
 const Header = () => {
   const logout = (event) => {
