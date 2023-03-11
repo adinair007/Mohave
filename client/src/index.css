@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap');
 
 .header {
-  height: 75px;
+  height: 77px;
   display: flex;
   align-items: center;
   background-color: #060644;
@@ -71,4 +71,11 @@
 .header_cartCount {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.home_image {
+  width: 100%;
+  z-index: -1;
+  margin-bottom: -150px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0,0,0,0.7));
 }
