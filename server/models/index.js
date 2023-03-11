@@ -1,4 +1,8 @@
-const User = require('./User');
-const Thought = require('./Thought');
+const User = require('./userModel');
+const Product = require ('./productModel');
+const Order = require ('./orderModel')
 
-module.exports = { User, Thought };
+
+
+
+module.exports = { User, Product, Order };
