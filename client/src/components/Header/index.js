@@ -4,6 +4,7 @@ import Logo from "../../assets/Mojave2.png";
 import Auth from "../../utils/auth";
 import SearchIcon from "@material-ui/icons/Search";
 import CartIcon from "@material-ui/icons/ShoppingCart";
+import { useStateValue } from "../../StateProvider";
 import "./Header.css";
 
 const Header = () => {
@@ -11,6 +12,9 @@ const Header = () => {
     event.preventDefault();
     Auth.logout();
   };
+
+  const [{ cart }, dispatch] = useStateValue();
+
   return (
     <div className="header">
       <div>
@@ -37,7 +41,9 @@ const Header = () => {
         <Link to="/checkout">
           <div className="header_optionCart">
             <CartIcon />
-            <span className="header_optionl2 header_cartCount">0</span>
+            <span className="header_optionl2 header_cartCount">
+              {cart?.length}
+            </span>
           </div>
         </Link>
       </div>
