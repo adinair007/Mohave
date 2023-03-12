@@ -10,7 +10,7 @@ const reviewSchema = new Schema(
     timestamps: true,
   }
 );
-const prodctSchema = new Schema({
+const productSchema = new Schema({
   name: { type: String, required: true },
   image: { type: String, required: true },
   brand: { type: String, required: true },
@@ -23,6 +23,6 @@ const prodctSchema = new Schema({
   reviews: [reviewSchema],
 });
 
-const productModel = model('Product', prodctSchema);
+const productModel = model('Product', productSchema);
 
 module.exports =  productModel;

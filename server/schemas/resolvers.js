@@ -1,120 +1,119 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought } = require('../models');
+const { User, Order, Product, Category } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
-  Query: {
-    users: async () => {
-      return User.find().populate('thoughts');
-    },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('thoughts');
-    },
-    thoughts: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Thought.find(params).sort({ createdAt: -1 });
-    },
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
-    },
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-  },
+    Query: {
 
-  Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
-      return { token, user };
+        user: async (parent, args, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id).populate({
+                    path: 'orders.products',
+                    populate: 'category'
+                });
+
+                user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+
+                return user;
+            }
+
+            throw new AuthenticationError('Not logged in');
+        },
+
+        categories: async () => {
+            return await Category.find();
+        },
+
+
+        products: async (parent, { category, name }) => {
+            const params = {};
+
+            if (category) {
+                params.category = category;
+            }
+
+            if (name) {
+                params.name = {
+                    $regex: name
+                };
+            }
+
+            return await Product.find(params).populate('category');
+        },
+        product: async (parent, { _id }) => {
+            return await Product.findById(_id).populate('category');
+        },
+
+        order: async (parent, { _id }, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id).populate({
+                    path: 'orders.products',
+                    populate: 'category'
+                });
+
+                return user.orders.id(_id);
+            }
+
+            throw new AuthenticationError('Not logged in');
+        }
     },
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
 
-      if (!user) {
-        throw new AuthenticationError('No user found with this email address');
-      }
+    Mutation: {
+        addUser: async (parent, { username, email, password }) => {
+            const user = await User.create({ username, email, password });
+            const token = signToken(user);
+            return { token, user };
+        },
 
-      const correctPw = await user.isCorrectPassword(password);
 
-      if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
-      }
+        updateUser: async (parent, args, context) => {
+            if (context.user) {
+                return await User.findByIdAndUpdate(context.user._id, args, { new: true });
+            }
 
-      const token = signToken(user);
+            throw new AuthenticationError('Not logged in');
+        },
 
-      return { token, user };
-    },
-    addThought: async (parent, { thoughtText }, context) => {
-      if (context.user) {
-        const thought = await Thought.create({
-          thoughtText,
-          thoughtAuthor: context.user.username,
-        });
+        updateProduct: async (parent, { _id, quantity }) => {
+            const decrement = Math.abs(quantity) * -1;
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { thoughts: thought._id } }
-        );
+            return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
+        },
 
-        return thought;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    addComment: async (parent, { thoughtId, commentText }, context) => {
-      if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          {
-            $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
-            },
+        addOrder: async (parent, { products }, context) => {
+            console.log(context);
+            if (context.user) {
+              const order = new Order({ products });
+      
+              await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+      
+              return order;
+            }
+      
+            throw new AuthenticationError('Not logged in');
           },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    removeThought: async (parent, { thoughtId }, context) => {
-      if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
-        });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
-        );
 
-        return thought;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    removeComment: async (parent, { thoughtId, commentId }, context) => {
-      if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-  },
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+
+            if (!user) {
+                throw new AuthenticationError('No user found with this email address');
+            }
+
+            const correctPw = await user.isCorrectPassword(password);
+
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect credentials');
+            }
+
+            const token = signToken(user);
+
+            return { token, user };
+        },
+    }
 };
+
+
 
 module.exports = resolvers;
