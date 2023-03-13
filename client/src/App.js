@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
-import Orders from "./pages/Orders/Orders";
+import OrderHistory from "./pages/OrderHistory/OrderHistory";
 import Home from "./pages/Home/Home";
 import Checkout from "./pages/Checkout/Checkout";
 import Footer from "./components/Footer";
@@ -50,8 +50,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/me" element={<Orders />} />
-              <Route path="/orders" element={<Orders />} />
+              <Route path="/orders" element={<OrderHistory />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/payment" element={<Payment />} />
             </Routes>
