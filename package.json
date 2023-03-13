@@ -17,6 +17,7 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "react-currency-format": "^1.1.0"
+    "react-currency-format": "^1.1.0",
+    "react-router-dom": "^6.9.0"
   }
 }

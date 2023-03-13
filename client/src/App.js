@@ -12,8 +12,9 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Orders from "./pages/Orders/Orders";
 import Home from "./pages/Home/Home";
-import Checkout from "./pages/Checkout/Checkout"
-import Footer from './components/Footer';
+import Checkout from "./pages/Checkout/Checkout";
+import Footer from "./components/Footer";
+import Payment from "./pages/Payment/Payment";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -44,7 +45,6 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="app">
-          
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -53,6 +53,7 @@ function App() {
               <Route path="/me" element={<Orders />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/payment" element={<Payment />} />
             </Routes>
           </div>
           <Footer />
