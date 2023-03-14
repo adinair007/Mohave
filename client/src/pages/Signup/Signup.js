@@ -10,7 +10,6 @@ import Auth from "../../utils/auth";
 
 const Signup = () => {
   const [formState, setFormState] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -48,19 +47,28 @@ const Signup = () => {
       <div className="signup_container">
         <h1>Create Account</h1>
         <form onSubmit={handleFormSubmit}>
-          <h5>Username</h5>
+          <h5>First Name</h5>
           <input
             className="form-input"
-            placeholder="Your username"
-            name="username"
+            placeholder="First Name"
+            name="firstName"
             type="text"
-            value={formState.name}
+            value={formState.firstName}
+            onChange={handleChange}
+          />
+          <h5>Last Name</h5>
+          <input
+            className="form-input"
+            placeholder="Last Name"
+            name="lastName"
+            type="text"
+            value={formState.lastName}
             onChange={handleChange}
           />
           <h5>Email</h5>
           <input
             className="form-input"
-            placeholder="Your email"
+            placeholder="E-mail"
             name="email"
             type="email"
             value={formState.email}

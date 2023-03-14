@@ -36,7 +36,7 @@ function Product({ id, title, price, image, rating }) {
         </div>
       </div>
       <img src={image} />
-      <button onClick={addToCart}>Add to Cart</button>
+      <button onClick={addToCart} style={{cursor: "pointer"}}>Add to Cart</button>
     </div>
   );
 }
