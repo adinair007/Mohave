@@ -8,12 +8,16 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "../../axios";
 import CurrencyFormat from "react-currency-format";
 import { getCartTotal } from "../../utils/reducer";
+import { QUERY_CHECKOUT } from "../../utils/queries";
+import { useLazyQuery } from "@apollo/client";
 
 const Payment = () => {
   const [{ cart }, dispatch] = useStateValue();
 
   const stripe = useStripe();
   const elements = useElements();
+
+  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState("");
@@ -34,29 +38,24 @@ const Payment = () => {
     getClientSecret();
   }, [cart]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setProcessing(true);
-
-    const payload = await stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      })
-      .then(({ paymentIntent }) => {
-        setSucceeded(true);
-        setError(null);
-        setProcessing(false);
-
-      return window.location.replace("/orders");
-      });
-  };
-
   const handleChange = (event) => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
+
+  function submitCheckout() {
+    const productIds = [];
+
+    cart.cart.forEach((item) => {
+      for (let i = 0; i < item.purchaseQuantity; i++) {
+        productIds.push(item._id);
+      }
+    });
+
+    getCheckout({
+      variables: { products: productIds },
+    });
+  }
 
   return (
     <div>
@@ -100,7 +99,7 @@ const Payment = () => {
               <h3>Payment Method</h3>
             </div>
             <div className="payment_details">
-              <form onSubmit={handleSubmit}>
+              <form>
                 <CardElement onChange={handleChange} />
                 <div className="payment_priceContainer">
                   <CurrencyFormat
@@ -111,7 +110,7 @@ const Payment = () => {
                     thousandSeparator={true}
                     prefix={"$"}
                   />
-                  <button disabled={processing || disabled || succeeded}>
+                  <button onClick={submitCheckout} disabled={processing || disabled || succeeded}>
                     <span> {processing ? <p>Processing</p> : "Buy Now"}</span>
                   </button>
                 </div>
