@@ -30,10 +30,10 @@ function Payment() {
     console.log("clientSecret is >>>>", clientSecret);
   }, []);
 
-  const handleChange = (event) => {
-    setDisabled(event.empty);
-    setError(event.error ? event.error.message : "");
-  };
+  // const handleChange = (event) => {
+  //   setDisabled(event.empty);
+  //   setError(event.error ? event.error.message : "");
+  // };
 
   const confirmPayment = async (event) => {
     event.preventDefault();
@@ -94,7 +94,7 @@ function Payment() {
             </div>
             <div className="payment_details">
               <form>
-                <CardElement onChange={handleChange} />
+                <CardElement />
                 <div className="payment_priceContainer">
                   <CurrencyFormat
                     renderText={(value) => <h3>Order Total: {value}</h3>}
