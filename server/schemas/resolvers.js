@@ -95,7 +95,7 @@ const resolvers = {
 
   //     return { session: session.id };
   //   },
-  // },
+  },
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
