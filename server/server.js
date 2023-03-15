@@ -5,7 +5,10 @@ const { authMiddleware } = require("./utils/auth");
 
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
-const Stripe = require("stripe");
+const stripeInit = require("stripe");
+const stripe = stripeInit(
+  "sk_test_51Mld1gIJwF9KWzHoA6sWR98dmAwGz4u2sDPQ1qax4eUyugjxcoKhO9aLb4QrhRuF5bLVoBhtf8PmtjGulzyaoxH700BFthL5EH"
+);
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -24,6 +27,22 @@ if (process.env.NODE_ENV === "production") {
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
+
+
+//Stripe API
+app.post("/payment/create", async (req, res) => {
+  const total = req.body.amount;
+  console.log("Payment Request recieved for $", total);
+
+  const payment = await stripe.paymentIntents.create({
+    amount: total * 100,
+    currency: "$",
+  });
+
+  res.status(201).send({
+    clientSecret: payment.client_secret,
+  });
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema

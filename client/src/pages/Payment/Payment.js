@@ -1,61 +1,55 @@
-import React, { useState, useEffect } from "react";
-import "../Payment/Payment.css";
-import Header from "../../components/Header";
-import CheckoutProduct from "../Checkout/CheckoutProduct";
-import { useStateValue } from "../../StateProvider";
-import { Link } from "react-router-dom";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "../../axios";
+import React, { useEffect, useState } from "react";
 import CurrencyFormat from "react-currency-format";
+import CheckoutProduct from "../Checkout/CheckoutProduct";
 import { getCartTotal } from "../../utils/reducer";
-import { QUERY_CHECKOUT } from "../../utils/queries";
-import { useLazyQuery } from "@apollo/client";
+import { useStateValue } from "../../StateProvider";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import Header from "../../components/Header";
+import "./Payment.css";
+import axios from "../../axios";
+import { Link, useNavigate } from "react-router-dom";
 
-const Payment = () => {
-  const [{ cart }, dispatch] = useStateValue();
+function Payment() {
+  const [{ cart, user }, dispatch] = useStateValue();
+  const [clientSecret, setClientSecret] = useState("");
 
-  const stripe = useStripe();
   const elements = useElements();
-
-  const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
-
-  const [succeeded, setSucceeded] = useState(false);
-  const [processing, setProcessing] = useState("");
-
-  const [error, setError] = useState(null);
-  const [disabled, setDisabled] = useState(true);
-
-  const [clientSecret, setClientSecret] = useState(true);
+  const stripe = useStripe();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const getClientSecret = async () => {
-      const response = await axios({
-        method: "post",
-        url: `/payments/create?total=${getCartTotal(cart) * 100}`,
+    const fetchClientSecret = async () => {
+      const data = await axios.post("/payment/create", {
+        amount: getCartTotal(cart),
       });
-      setClientSecret(response.data.clientSecret);
+
+      setClientSecret(data.data.clientSecret);
     };
-    getClientSecret();
-  }, [cart]);
+
+    fetchClientSecret();
+    console.log("clientSecret is >>>>", clientSecret);
+  }, []);
 
   const handleChange = (event) => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
 
-  function submitCheckout() {
-    const productIds = [];
+  const confirmPayment = async (event) => {
+    event.preventDefault();
 
-    cart.cart.forEach((item) => {
-      for (let i = 0; i < item.purchaseQuantity; i++) {
-        productIds.push(item._id);
-      }
-    });
-
-    getCheckout({
-      variables: { products: productIds },
-    });
-  }
+    await stripe
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      })
+      .then((result) => {
+        alert(("Payment Successful"))
+        navigate("/");
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div>
@@ -110,19 +104,33 @@ const Payment = () => {
                     thousandSeparator={true}
                     prefix={"$"}
                   />
-                  <button onClick={submitCheckout} disabled={processing || disabled || succeeded}>
-                    <span> {processing ? <p>Processing</p> : "Buy Now"}</span>
+                  <button
+                    onClick={confirmPayment}
+                    // disabled={processing || disabled || succeeded}
+                  >
+                    <span>Buy Now</span>
                   </button>
                 </div>
-                {error && <div>{error}</div>}
+                {/* {error && <div>{error}</div>} */}
               </form>
             </div>
           </div>
         </div>
       </div>
-      ;
     </div>
   );
-};
-
+}
 export default Payment;
+
+//   const [{ cart }, dispatch] = useStateValue();
+
+//   const stripe = useStripe();
+//   const elements = useElements();
+
+//   const [succeeded, setSucceeded] = useState(false);
+//   const [processing, setProcessing] = useState("");
+
+//   const [error, setError] = useState(null);
+//   const [disabled, setDisabled] = useState(true);
+
+//   const [clientSecret, setClientSecret] = useState(true);
