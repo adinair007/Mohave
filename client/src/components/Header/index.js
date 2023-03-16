@@ -13,7 +13,7 @@ const Header = () => {
     Auth.logout();
   };
 
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart, list }, dispatch] = useStateValue();
 
   return (
     <div className="header">
@@ -31,6 +31,12 @@ const Header = () => {
           <div className="header_option">
             <span className="header_optionl1">Hello Guest</span>
             <span className="header_optionl2">Sign In</span>
+          </div>
+        </Link>
+        <Link to="/wishlist">
+          <div className="header_option">
+            <span className="header_optionl1">Your</span>
+            <span className="header_optionl2">Wishlist</span>
           </div>
         </Link>
         <Link to="/orders">

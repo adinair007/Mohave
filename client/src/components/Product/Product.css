@@ -39,10 +39,20 @@
   align-items: center;
 }
 
-.product > button {
+.list_button {
+  background: rgb(255, 230, 161);
+  border: 1px solid;
+  margin-top: 10px;
+  border-color: black;
+  color: black;
+  width: 50%;
+}
+
+.cart_button {
   background: #e7064a;
   border: 1px solid;
   margin-top: 10px;
   border-color:  #9c0216 #b40427 #d1051d;
   color: whitesmoke;
+  width: 50%
 }
