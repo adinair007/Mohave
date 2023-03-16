@@ -1,0 +1,33 @@
+.wishlistProduct {
+    display:flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.wishlistProduct_info {
+    padding-left: 20px;
+}
+
+.remove_button {
+    background: rgb(255, 230, 161);
+    border: 1px solid;
+    margin-top: 10px;
+    border-color: black;
+    color: black;
+    width: 50%;
+}
+
+.wishlistProduct_image {
+    object-fit: contain;
+    width: 180px;
+    height: 180px;
+}
+
+.wishlistProduct_rating {
+    display: flex;
+}
+
+.wishlistProduct_title {
+    font-size: 17px;
+    font-weight: 600;
+}

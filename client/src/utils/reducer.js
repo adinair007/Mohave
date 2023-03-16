@@ -1,5 +1,6 @@
 export const initialState = {
   cart: [],
+  list: [],
 };
 
 export const getCartTotal = (cart) =>
@@ -30,6 +31,28 @@ const reducer = (state, action) => {
       return {
         ...state,
         cart: newCart,
+      };
+
+    case "ADD_TO_WISHLIST":
+      return {
+        ...state,
+        list: [...state.list, action.item],
+      };
+
+    case "REMOVE_FROM_WISHLIST":
+      const i = state.list.findIndex((listItem) => listItem.id === action.id);
+      let newWishlist = [...state.list];
+      if (i >= 0) {
+        newWishlist.splice(i, 1);
+      } else {
+        console.warn(
+          `Can't remove product (id: ${action.id}) because it's not in the cart.`
+        );
+      }
+
+      return {
+        ...state,
+        list: newWishlist,
       };
 
     default:
