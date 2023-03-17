@@ -34,7 +34,7 @@ const resolvers = {
 
             if (name) {
                 params.name = {
-                    $regex: name
+                    $regex: '.*'+name+'.*'
                 };
             }
 
