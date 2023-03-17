@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
 import Desert from "../../assets/Desert.jpg";
 import Header from "../../components/Header";
 import Product from "../../components/Product";
+
+import { QUERY_ALL_PRODUCTS } from "../../utils/queries";
+
 import "./Home.css";
 
 function Home() {
+  const { loading, data } = useQuery(QUERY_ALL_PRODUCTS);
+
   return (
     <div>
       <Header />
       <div className="home">
         <div className="home_container">
           <img className="home_image" src={Desert} alt="Desert art" />
-          <div className="home_row">
-            <Product
+
+          {loading ? (
+            <div>Loading products</div>
+          ) : (
+            data.products.map((product) => (
+              <Product
+                id={product._id}
+                title={product.name}
+                price={product.price}
+                image={product.image}
+                rating={5}
+              />
+            ))
+          )}
+          {/* <Product
               id="223456"
               title="PlayStation PS5 Console – God of War Ragnarök Bundle"
               price={599.99}
@@ -25,9 +44,8 @@ function Home() {
               price={269.95}
               image="https://m.media-amazon.com/images/I/81reRlhfewL._AC_SX679_.jpg"
               rating={5}
-            />
-          </div>
-          <div className="home_row">
+            /> */}
+          {/* <div className="home_row">
             <Product
               id="334552"
               title="3Pcs Modern Bookshelf Decor Sitting Thinker Statue Abstract Sculpture"
@@ -58,7 +76,7 @@ function Home() {
               image="https://m.media-amazon.com/images/I/61SQz8S+fEL._AC_SX679_.jpg"
               rating={5}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

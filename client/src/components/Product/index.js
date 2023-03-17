@@ -4,7 +4,7 @@ import "./Product.css";
 
 function Product({ id, title, price, image, rating }) {
   const [{ cart, list }, dispatch] = useStateValue();
-
+  console.log("IMAGE?", image);
   console.log("this is the cart >>>", cart);
   console.log("this is the wishlist >>>", list);
   const addToCart = () => {
@@ -50,8 +50,20 @@ function Product({ id, title, price, image, rating }) {
         </div>
       </div>
       <img src={image} />
-      <button className="cart_button" onClick={addToCart} style={{cursor: "pointer"}}>Add to Cart</button>
-      <button className="list_button" onClick={addToWishlist} style={{cursor: "pointer"}}>Add to Wishlist</button>
+      <button
+        className="cart_button"
+        onClick={addToCart}
+        style={{ cursor: "pointer" }}
+      >
+        Add to Cart
+      </button>
+      <button
+        className="list_button"
+        onClick={addToWishlist}
+        style={{ cursor: "pointer" }}
+      >
+        Add to Wishlist
+      </button>
     </div>
   );
 }
