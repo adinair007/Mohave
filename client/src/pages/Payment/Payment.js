@@ -6,77 +6,79 @@ import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import Header from "../../components/Header";
 import "./Payment.css";
-import axios from "../../axios"
+// import axios from "../../axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const Payment = () => {
   const [{ cart, user }, dispatch] = useStateValue();
-  const [clientSecret, setClientSecret] = useState("");
+  // const [clientSecret, setClientSecret] = useState(true);
 
   const elements = useElements();
   const stripe = useStripe();
   const navigate = useNavigate();
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   if (!stripe || !elements) {
-  //     return;
-  //   }
-
-  //   const { clientSecret } = await fetch(`/payments/create?total=${getCartTotal(cart) * 100}`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       paymentMethodType: "card",
-  //       currency: "usd",
-  //     }),
-  //   }).then((response) => response.json());
-
-  //   const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-  //     payment_method: {
-  //       card: elements.getElement(CardElement),
-  //     },
-  //   });
-  // };
-
-  useEffect(() => {
-    // generate the special stripe secret which allows us to charge a customer
-    const getClientSecret = async () => {
-      const response = await axios({
-        method: "post",
-        // Stripe expects the total in a currencies subunits
-        url: `/payment/create?total=${Math.trunc(getCartTotal(cart) * 100)}`,
-      });
-      setClientSecret(response.data.clientSecret);
-    };
-
-    getClientSecret();
-  }, [cart]);
-  console.log("THE SECRET IS >>>", clientSecret);
-  console.log("👱", user);
-
-  // const handleChange = (event) => {
-  //   setDisabled(event.empty);
-  //   setError(event.error ? event.error.message : "");
-  // };
-
-  const confirmPayment = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!stripe || !elements) {
+      return;
+    }
 
-    await stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
+    const { clientSecret } = await fetch(
+      `/payment/create?total=${getCartTotal(cart) * 100}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      })
-      .then((result) => {
-        alert("Payment Successful");
-        navigate("/");
-      })
-      .catch((error) => console.log(error));
+        body: JSON.stringify({
+          paymentMethodType: "card",
+          currency: "usd",
+        }),
+      }
+    ).then((response) => response.json());
+
+    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
   };
+
+  // useEffect(() => {
+  //   // generate the special stripe secret which allows us to charge a customer
+  //   const getClientSecret = async () => {
+  //     const response = await axios({
+  //       method: "post",
+  //       // Stripe expects the total in a currencies subunits
+  //       url: `/payments/create?total=${getCartTotal(cart) * 100}`,
+  //     });
+  //     setClientSecret(response.data.clientSecret);
+  //   };
+
+  //   getClientSecret();
+  // }, [cart]);
+  // console.log("THE SECRET IS >>>", clientSecret);
+  // console.log("👱", user);
+  // // const handleChange = (event) => {
+  // //   setDisabled(event.empty);
+  // //   setError(event.error ? event.error.message : "");
+  // // };
+
+  // const confirmPayment = async (event) => {
+  //   event.preventDefault();
+
+  //   await stripe
+  //     .confirmCardPayment(clientSecret, {
+  //       payment_method: {
+  //         card: elements.getElement(CardElement),
+  //       },
+  //     })
+  //     .then((result) => {
+  //       alert("Payment Successful");
+  //       navigate("/");
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
   return (
     <div>
@@ -132,7 +134,7 @@ const Payment = () => {
                     prefix={"$"}
                   />
                   <button
-                    onClick={confirmPayment}
+                    onClick={handleSubmit}
                     // disabled={processing || disabled || succeeded}
                   >
                     <span>Buy Now</span>
