@@ -6,7 +6,7 @@ import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import Header from "../../components/Header";
 import "./Payment.css";
-import axios from "../../axios";
+import axios from "../../axios"
 import { Link, useNavigate } from "react-router-dom";
 
 const Payment = () => {
@@ -47,7 +47,7 @@ const Payment = () => {
       const response = await axios({
         method: "post",
         // Stripe expects the total in a currencies subunits
-        url: `/payments?total=${getCartTotal(cart) * 100}`,
+        url: `/payment/create?total=${getCartTotal(cart) * 100}`,
       });
       setClientSecret(response.data.clientSecret);
     };

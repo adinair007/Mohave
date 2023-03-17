@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 });
 
 //Stripe API
-app.post("/payment", async (req, res) => {
+app.post("/payment/create", async (req, res) => {
   const total = req.body.amount;
   console.log("Payment Request recieved for $", total);
 
