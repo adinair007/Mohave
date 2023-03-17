@@ -6,50 +6,75 @@ import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import Header from "../../components/Header";
 import "./Payment.css";
-import axios from "../../axios";
 import { Link, useNavigate } from "react-router-dom";
 
-function Payment() {
+const Payment = () => {
   const [{ cart, user }, dispatch] = useStateValue();
-  const [clientSecret, setClientSecret] = useState("");
+  // const [clientSecret, setClientSecret] = useState(true);
 
   const elements = useElements();
   const stripe = useStripe();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchClientSecret = async () => {
-      const data = await axios.post("/payment/create", {
-        amount: getCartTotal(cart),
-      });
-
-      setClientSecret(data.data.clientSecret);
-    };
-
-    fetchClientSecret();
-    console.log("clientSecret is >>>>", clientSecret);
-  }, []);
-
-  // const handleChange = (event) => {
-  //   setDisabled(event.empty);
-  //   setError(event.error ? event.error.message : "");
-  // };
-
-  const confirmPayment = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!stripe || !elements) {
+      return;
+    }
 
-    await stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      })
-      .then((result) => {
-        alert(("Payment Successful"))
-        navigate("/");
-      })
-      .catch((error) => console.log(error));
+    const { clientSecret } = await fetch("/create-payment-intent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        paymentMethodType: "card",
+        currency: "usd",
+      }),
+    }).then((response) => response.json());
+
+    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
   };
+
+  // useEffect(() => {
+  //   // generate the special stripe secret which allows us to charge a customer
+  //   const getClientSecret = async () => {
+  //     const response = await axios({
+  //       method: "post",
+  //       // Stripe expects the total in a currencies subunits
+  //       url: `/payments/create?total=${getCartTotal(cart) * 100}`,
+  //     });
+  //     setClientSecret(response.data.clientSecret);
+  //   };
+
+  //   getClientSecret();
+  // }, [cart]);
+  // console.log("THE SECRET IS >>>", clientSecret);
+  // console.log("👱", user);
+  // // const handleChange = (event) => {
+  // //   setDisabled(event.empty);
+  // //   setError(event.error ? event.error.message : "");
+  // // };
+
+  // const confirmPayment = async (event) => {
+  //   event.preventDefault();
+
+  //   await stripe
+  //     .confirmCardPayment(clientSecret, {
+  //       payment_method: {
+  //         card: elements.getElement(CardElement),
+  //       },
+  //     })
+  //     .then((result) => {
+  //       alert("Payment Successful");
+  //       navigate("/");
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
   return (
     <div>
@@ -105,7 +130,7 @@ function Payment() {
                     prefix={"$"}
                   />
                   <button
-                    onClick={confirmPayment}
+                    onClick={handleSubmit}
                     // disabled={processing || disabled || succeeded}
                   >
                     <span>Buy Now</span>
@@ -119,7 +144,7 @@ function Payment() {
       </div>
     </div>
   );
-}
+};
 export default Payment;
 
 //   const [{ cart }, dispatch] = useStateValue();

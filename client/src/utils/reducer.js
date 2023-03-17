@@ -55,6 +55,12 @@ const reducer = (state, action) => {
         list: newWishlist,
       };
 
+    case "EMPTY_CART":
+      return {
+        ...state,
+        cart: [],
+      };
+
     default:
       return state;
   }

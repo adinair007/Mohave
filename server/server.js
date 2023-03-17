@@ -36,12 +36,13 @@ app.post("/payment/create", async (req, res) => {
   const total = req.body.amount;
   console.log("Payment Request recieved for $", total);
 
-  const payment = await stripe.paymentIntent.create({
+  const payment = await stripe.paymentIntents.create({
     amount: total * 100,
     currency: "usd",
+    payment_method_types: ["card"],
   });
 
-  res.status(201).send({
+  res.json({
     clientSecret: payment.client_secret,
   });
 });
