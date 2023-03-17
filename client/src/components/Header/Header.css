@@ -30,9 +30,11 @@
   width: 100%;
 }
 
-.header_searchIcon {
+.header_search > button {
   padding: 5px;
-  height: 22px !important;
+  height: 35px !important;
+  width: 9%;
+  border-color: #e7064a;
   background-color: #e7064a;
   color: whitesmoke;
 }

@@ -47,7 +47,7 @@ export default function Header() {
           <div className="header_search">
               <input className="search_input" type="text" value={value} onChange={onChange} />
               {/* <SearchIcon className="header_searchIcon" /> */}
-              <button onClick={() => onSearch(value)}> Search </button>
+              <button onClick={() => onSearch(value)}> <SearchIcon className="header_searchIcon" /></button>
               <div className="dropdown" style={dropDownStyle}>
                 {data
                     .filter((item) => {

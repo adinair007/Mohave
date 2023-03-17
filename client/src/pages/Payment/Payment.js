@@ -22,7 +22,7 @@ const Payment = () => {
       return;
     }
 
-    const { clientSecret } = await fetch("/create-payment-intent", {
+    const { clientSecret } = await fetch(`/payments/create?total=${getCartTotal(cart) * 100}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
