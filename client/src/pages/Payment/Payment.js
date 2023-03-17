@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Payment = () => {
   const [{ cart, user }, dispatch] = useStateValue();
-  const [clientSecret, setClientSecret] = useState(true);
+  const [clientSecret, setClientSecret] = useState("");
 
   const elements = useElements();
   const stripe = useStripe();
