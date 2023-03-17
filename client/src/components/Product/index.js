@@ -3,13 +3,27 @@ import { useStateValue } from "../../StateProvider";
 import "./Product.css";
 
 function Product({ id, title, price, image, rating }) {
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ cart, list }, dispatch] = useStateValue();
 
   console.log("this is the cart >>>", cart);
+  console.log("this is the wishlist >>>", list);
   const addToCart = () => {
     //dispatch the item into cart/data layer
     dispatch({
       type: "ADD_TO_CART",
+      item: {
+        id: id,
+        title: title,
+        image: image,
+        price: price,
+        rating: rating,
+      },
+    });
+  };
+  const addToWishlist = () => {
+    //dispatch the item into cart/data layer
+    dispatch({
+      type: "ADD_TO_WISHLIST",
       item: {
         id: id,
         title: title,
@@ -36,7 +50,8 @@ function Product({ id, title, price, image, rating }) {
         </div>
       </div>
       <img src={image} />
-      <button onClick={addToCart}>Add to Cart</button>
+      <button className="cart_button" onClick={addToCart} style={{cursor: "pointer"}}>Add to Cart</button>
+      <button className="list_button" onClick={addToWishlist} style={{cursor: "pointer"}}>Add to Wishlist</button>
     </div>
   );
 }

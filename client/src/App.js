@@ -16,6 +16,8 @@ import Home from "./pages/Home/Home";
 import Checkout from "./pages/Checkout/Checkout";
 import Footer from "./components/Footer";
 import Payment from "./pages/Payment/Payment";
+import Wishlist from "./pages/Wishlist/Wishlist";
+// import Success from "./pages/Success/Success";
 
 
 // Construct our main GraphQL API endpoint
@@ -55,12 +57,11 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              
-
-          
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/orders" element={<OrderHistory />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/payment" element={<Payment />} />
+              {/* <Route path="/success" element={<Success />} /> */}
             </Routes>
           </div>
           <Footer />

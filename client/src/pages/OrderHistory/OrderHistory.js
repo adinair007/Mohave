@@ -1,10 +1,10 @@
 import React from "react";
-import { Navigate, useParams } from "react-router-dom";
+// import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
 import { QUERY_USER } from "../../utils/queries";
 
-import Auth from "../../utils/auth";
+// import Auth from "../../utils/auth";
 import Header from "../../components/Header";
 // import { keys } from "@material-ui/core/styles/createBreakpoints";
 
