@@ -71,3 +71,15 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.header_search .dropdown {
+  position: absolute;
+  top: 55px;
+  width: 795px;
+  background: #fff;
+  height: auto;
+}
+
+.drop_down {
+  background-color: white;
+}
