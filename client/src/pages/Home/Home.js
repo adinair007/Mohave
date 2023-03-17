@@ -17,20 +17,21 @@ function Home() {
       <div className="home">
         <div className="home_container">
           <img className="home_image" src={Desert} alt="Desert art" />
-
-          {loading ? (
-            <div>Loading products</div>
-          ) : (
-            data.products.map((product) => (
-              <Product
-                id={product._id}
-                title={product.name}
-                price={product.price}
-                image={product.image}
-                rating={5}
-              />
-            ))
-          )}
+          <div className="home_row">
+            {loading ? (
+              <div>Loading products</div>
+            ) : (
+              data.products.map((product) => (
+                <Product
+                  id={product._id}
+                  title={product.name}
+                  price={product.price}
+                  image={product.image}
+                  rating={5}
+                />
+              ))
+            )}
+          </div>
           {/* <Product
               id="223456"
               title="PlayStation PS5 Console – God of War Ragnarök Bundle"

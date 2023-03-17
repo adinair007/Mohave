@@ -21,18 +21,27 @@ db.once("open", async () => {
     {
       name: "PlayStation PS5 Console – God of War Ragnarök Bundle",
       description: "PlayStation PS5 Console – God of War Ragnarök Bundle",
-      image: "https://m.media-amazon.com/images/I/61SUJDrCTLL._AC_UY436_FMwebp_QL65_.jpg",
+      image:
+        "https://m.media-amazon.com/images/I/61SUJDrCTLL._AC_UY436_FMwebp_QL65_.jpg",
       category: categories[2]._id,
       price: 599.99,
       rating: 5,
     },
     {
       name: "LEGO DC Batman Batmobile Tumbler",
-      description:
-        "LEGO DC Batman Batmobile Tumbler",
+      description: "LEGO DC Batman Batmobile Tumbler",
       image: "https://m.media-amazon.com/images/I/81reRlhfewL._AC_SX679_.jpg",
       category: categories[4]._id,
       price: 269.95,
+      rating: 5,
+    },
+    {
+      name: "SAMSUNG 49” Odyssey G9 Gaming Monitor",
+      category: categories[2]._id,
+      description:
+        "Vestibulum risus metus, luctus non tortor quis, tincidunt consectetur ex. Nullam vitae lobortis ligula, ut sagittis massa. Curabitur consectetur, tellus at pulvinar venenatis, erat augue cursus erat, eu ullamcorper eros lectus ultrices ipsum. Integer rutrum, augue vitae auctor venenatis, turpis turpis elementum orci, at sagittis risus mi a leo.",
+      image: "https://m.media-amazon.com/images/I/61SQz8S+fEL._AC_SX679_.jpg",
+      price: 1284.24,
       rating: 5,
     },
     {
@@ -49,7 +58,8 @@ db.once("open", async () => {
       category: categories[2]._id,
       description:
         "Praesent placerat, odio vel euismod venenatis, lectus arcu laoreet felis, et fringilla sapien turpis vestibulum nisl.",
-      image: "https://m.media-amazon.com/images/I/819pla7Wo3L._AC_UY436_FMwebp_QL65_.jpg",
+      image:
+        "https://m.media-amazon.com/images/I/819pla7Wo3L._AC_UY436_FMwebp_QL65_.jpg",
       price: 1199.59,
       rating: 3,
     },
@@ -58,26 +68,19 @@ db.once("open", async () => {
       category: categories[2]._id,
       description:
         "Vivamus ut turpis in purus pretium mollis. Donec turpis odio, semper vel interdum ut, vulputate at ex. Duis dignissim nisi vel tortor imperdiet finibus. Aenean aliquam sagittis rutrum.",
-      image: "https://m.media-amazon.com/images/I/61IZcaEIt4L._AC_UY436_FMwebp_QL65_.jpg",
+      image:
+        "https://m.media-amazon.com/images/I/61IZcaEIt4L._AC_UY436_FMwebp_QL65_.jpg",
       price: 289.99,
       rating: 4,
     },
-    {
-      name: "SAMSUNG 49” Odyssey G9 Gaming Monitor",
-      category: categories[2]._id,
-      description:
-        "Vestibulum risus metus, luctus non tortor quis, tincidunt consectetur ex. Nullam vitae lobortis ligula, ut sagittis massa. Curabitur consectetur, tellus at pulvinar venenatis, erat augue cursus erat, eu ullamcorper eros lectus ultrices ipsum. Integer rutrum, augue vitae auctor venenatis, turpis turpis elementum orci, at sagittis risus mi a leo.",
-      image: "https://m.media-amazon.com/images/I/61SQz8S+fEL._AC_SX679_.jpg",
-      price: 1284.24,
-      rating:5,
-    },
+
     {
       name: `Lenovo 2022 Newest Ideapad 3 Laptop, 15.6" HD Touchscreen, 11th Gen Intel Core i3-1115G4 Processor, 8GB DDR4 RAM, 256GB PCIe NVMe SSD`,
       category: categories[2]._id,
       description:
         "In sodales, ipsum quis ultricies porttitor, tellus urna aliquam arcu, eget venenatis purus ligula ut nisi. Fusce ut felis dolor. Mauris justo ante, aliquet non tempus in, tempus ac lorem. Aliquam lacinia dolor eu sem eleifend ultrices. Etiam mattis metus metus. Sed ligula dui, placerat non turpis vitae, suscipit volutpat elit. Phasellus sagittis, diam elementum suscipit fringilla, libero mauris scelerisque ex, ac interdum diam erat non sapien.",
       image: "https://m.media-amazon.com/images/I/61QGMX0Qy6L._AC_SL1352_.jpg",
-      price: 371.90,
+      price: 371.9,
       rating: 4,
     },
     {
@@ -103,7 +106,8 @@ db.once("open", async () => {
       category: categories[3]._id,
       description:
         "Sed a mauris condimentum, elementum enim in, rhoncus dui. Phasellus lobortis leo odio, sit amet pharetra turpis porta quis.",
-      image: "https://m.media-amazon.com/images/I/51hozW6gzYL._SX449_BO1,204,203,200_.jpg",
+      image:
+        "https://m.media-amazon.com/images/I/51hozW6gzYL._SX449_BO1,204,203,200_.jpg",
       price: 21.69,
       rating: 5,
     },
