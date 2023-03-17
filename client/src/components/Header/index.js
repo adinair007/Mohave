@@ -78,6 +78,14 @@ export default function Header() {
                       <span className="header_optionl2">Sign In</span>
                   </div>
               </Link>
+              
+              <Link to="/wishlist">
+            <div className="header_option">
+            <span className="header_optionl1">Your</span>
+            <span className="header_optionl2">Wishlist</span>
+            </div>
+             </Link>
+              
 
               <Link to="/orders">
                   <div className="header_option">
