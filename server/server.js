@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 
 //Stripe API
 app.post("/payment/create", async (req, res) => {
-  const total = req.body.amount;
+  const total = req.query.total;
   console.log("Payment Request recieved for $", total);
 
   const payment = await stripe.paymentIntents.create({
