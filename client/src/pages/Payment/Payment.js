@@ -24,7 +24,7 @@ const Payment = () => {
     }
 
     const { clientSecret } = await fetch(
-      `/payment/create?total=${Math.floor(getCartTotal(cart) * 100)}`,
+      `/payment/create?total=${Math.floor(getCartTotal(cart))}`,
       {
         method: "POST",
         headers: {
@@ -37,11 +37,17 @@ const Payment = () => {
       }
     ).then((response) => response.json());
 
-    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-      },
-    });
+    const { paymentIntent } = await stripe
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      })
+      .then((result) => {
+        alert("Payment Successful");
+        navigate("/");
+      })
+      .catch((error) => console.log(error));
   };
 
   // useEffect(() => {
