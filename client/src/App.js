@@ -17,8 +17,8 @@ import Checkout from "./pages/Checkout/Checkout";
 import Footer from "./components/Footer";
 import Payment from "./pages/Payment/Payment";
 import Wishlist from "./pages/Wishlist/Wishlist";
+import Address from "./components/Address/Address";
 // import Success from "./pages/Success/Success";
-
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -44,10 +44,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
 function App() {
- 
-
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -61,6 +58,7 @@ function App() {
               <Route path="/orders" element={<OrderHistory />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/address" element={<Address />} />
               {/* <Route path="/success" element={<Success />} /> */}
             </Routes>
           </div>
