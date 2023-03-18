@@ -32,7 +32,7 @@ export const QUERY_ALL_PRODUCTS = gql`
       description
       price
       image
-      quantity
+      rating
       category {
         name
       }
@@ -62,7 +62,7 @@ export const QUERY_USER = gql`
           name
           description
           price
-          quantity
+          rating
           image
         }
       }
