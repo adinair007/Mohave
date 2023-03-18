@@ -24,7 +24,7 @@ const Payment = () => {
     }
 
     const { clientSecret } = await fetch(
-      `/payment/create?total=${getCartTotal(cart) * 100}`,
+      `/payment/create?total=${Math.floor(getCartTotal(cart) * 100)}`,
       {
         method: "POST",
         headers: {
