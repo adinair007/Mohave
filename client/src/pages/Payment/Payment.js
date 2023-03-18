@@ -11,6 +11,8 @@ import { Link, useNavigate } from "react-router-dom";
 const Payment = () => {
   const [{ cart, user }, dispatch] = useStateValue();
 
+  const [{ address }] = useStateValue();
+
   const elements = useElements();
   const stripe = useStripe();
   const navigate = useNavigate();
@@ -62,9 +64,13 @@ const Payment = () => {
               <h3>Delivery Address</h3>
             </div>
             <div className="payment_address">
-              <p>email</p>
-              <p>123 Fire Lane</p>
-              <p>Denton, TX</p>
+              <p>{address.fullName}</p>
+              <p>{address.userEmail}</p>
+              <p>{address.userAddress}</p>
+              <p>{address.userCity}</p>
+              <p>{address.userState}</p>
+              <p>{address.userZip}</p>
+              <p>{address.userPhone}</p>
             </div>
           </div>
 
