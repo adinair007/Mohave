@@ -11,6 +11,7 @@
 .remove_button {
     background: rgb(255, 230, 161);
     border: 1px solid;
+    border-radius: 2px;
     margin-top: 10px;
     border-color: black;
     color: black;

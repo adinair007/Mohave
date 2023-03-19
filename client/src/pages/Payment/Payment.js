@@ -107,18 +107,18 @@ const Payment = () => {
                     thousandSeparator={true}
                     prefix={"$"}
                   />
-                  <button
-                    onClick={handleSubmit}
-                    // disabled={processing || disabled || succeeded}
-                  >
-                    <span>Buy Now</span>
-                  </button>
                 </div>
                 {/* {error && <div>{error}</div>} */}
               </form>
             </div>
           </div>
         </div>
+        <button
+            onClick={handleSubmit}
+            // disabled={processing || disabled || succeeded}
+          >
+            <span><strong>Buy Now</strong></span>
+          </button>
       </div>
     </div>
   );
