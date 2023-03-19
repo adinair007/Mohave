@@ -5,13 +5,12 @@ import { getCartTotal } from "../../utils/reducer";
 import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import Header from "../../components/Header";
+import axios from "../../axios";
 import "./Payment.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const Payment = () => {
-  const [{ cart, user }, dispatch] = useStateValue();
-
-  const [{ address }] = useStateValue();
+  const [{ cart, address, user }, dispatch] = useStateValue();
 
   const elements = useElements();
   const stripe = useStripe();
@@ -45,6 +44,11 @@ const Payment = () => {
       })
       .then((result) => {
         alert("Payment Successful");
+        axios.post("/orders/add", {
+          cart: cart,
+          price: getCartTotal(cart),
+          email: user?.firstName,
+        });
         dispatch({
           type: "EMPTY_CART",
         });
@@ -117,10 +121,7 @@ const Payment = () => {
             </div>
           </div>
         </div>
-        <button
-          onClick={handleSubmit}
-          // disabled={processing || disabled || succeeded}
-        >
+        <button onClick={handleSubmit}>
           <span>
             <strong>Buy Now</strong>
           </span>
