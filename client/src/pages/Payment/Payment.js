@@ -45,8 +45,12 @@ const Payment = () => {
       })
       .then((result) => {
         alert("Payment Successful");
+        dispatch({
+          type: "EMPTY_CART",
+        });
         navigate("/");
       })
+
       .catch((error) => console.log(error));
   };
 
@@ -114,11 +118,13 @@ const Payment = () => {
           </div>
         </div>
         <button
-            onClick={handleSubmit}
-            // disabled={processing || disabled || succeeded}
-          >
-            <span><strong>Buy Now</strong></span>
-          </button>
+          onClick={handleSubmit}
+          // disabled={processing || disabled || succeeded}
+        >
+          <span>
+            <strong>Buy Now</strong>
+          </span>
+        </button>
       </div>
     </div>
   );
