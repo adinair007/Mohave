@@ -47,7 +47,8 @@ const Payment = () => {
         axios.post("/orders/add", {
           cart: cart,
           price: getCartTotal(cart),
-          email: user?.firstName,
+          email: user?.email,
+          address: address,
         });
         dispatch({
           type: "EMPTY_CART",
