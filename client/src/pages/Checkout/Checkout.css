@@ -3,6 +3,8 @@
   padding: 20px;
   background-color: white;
   height: max-content;
+  justify-content: center;
+  
 }
 
 .checkout__title {
@@ -14,4 +16,12 @@
 .checkout__ad {
   width: 100%;
   margin-bottom: 10px;
+}
+
+
+@media screen and (max-width: 650px) {
+  .checkout {
+    display: flex;
+    flex-direction: column;
+  }
 }
