@@ -1,21 +1,12 @@
 import React from "react";
-// import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-
 import { QUERY_USER } from "../../utils/queries";
-
-// import Auth from "../../utils/auth";
 import Header from "../../components/Header";
-import Product from "../../components/Product";
-// import { keys } from "@material-ui/core/styles/createBreakpoints";
+import CheckoutProduct from "../../pages/Checkout/CheckoutProduct";
 
 const OrderHistory = () => {
     const { data } = useQuery(QUERY_USER);
-  let user
-
-  // if (!user?.firstName) {
-  //   return window.location.replace("./login");
-  // }
+  let user;
 
   if (data) {
     user = data.user;
@@ -32,9 +23,9 @@ const OrderHistory = () => {
               {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
             </h3>
             <div className="order_info">
-              {order.products.map(({ _id, image, name, price }, product) => (
+              {user.orders.products.map(({ _id, image, name, price }, product) => (
                 <div key={product} className="product_info">
-                  <Product
+                  <CheckoutProduct
                      id={product._id}
                      title={product.name}
                      price={product.price}
