@@ -17,13 +17,13 @@ const OrderHistory = () => {
       <Header />
       <div className="order_history">
         <h2>Viewing {user ? `${user.firstName}'s` : "your"} orders.</h2>
-        {user.orders.map((order) => (
+        {user?.orders ? user.orders.map((order) => (
           <div key={order._id} className="order_container">
             <h3>
               {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
             </h3>
             <div className="order_info">
-              {user.orders.products.map(({ _id, image, name, price }, product) => (
+              {order.products.map(({ _id, image, name, price }, product) => (
                 <div key={product} className="product_info">
                   <CheckoutProduct
                      id={product._id}
@@ -35,8 +35,7 @@ const OrderHistory = () => {
                 </div>
               ))}
             </div>
-          </div>
-        ))}
+          </div>)) : <div>No orders for this user.</div>}
       </div>
     </div>
   );
