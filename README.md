@@ -1,5 +1,6 @@
 # Mojave
 Project 3 : Interactive MERN Stack Single-Page Application
+[Deployed Link](https://mojave-store.herokuapp.com)
 
 
 ## Badges
@@ -32,7 +33,6 @@ Project 3 : Interactive MERN Stack Single-Page Application
 
 ## User Story
 ---------------------INSERT USER STORY ---------------------------------
-
 
 
 ## Acceptance Criteria 
@@ -69,5 +69,10 @@ Project 3 : Interactive MERN Stack Single-Page Application
 
 
   ## Questions?
-  ### Reach me here:
-  ---------------------INSERT PROJECT MEMBERS ---------------------------------
+  ### Reach us here:
+  [Aditya Nair](https://github.com/adinair007)
+  [Jessep Stynchcomb](https://github.com/1jessep)
+  [DominiqueGarrett](https://github.com/DominiqueGarrett)
+  [Amanda Lee](https://github.com/Amandagl1)
+  [Aldo Perez](https://github.com/Staygold93)  
+
