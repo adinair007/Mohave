@@ -1,8 +1,9 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_USER } from "../../utils/queries";
-import Header from "../../components/Header";
+import HeaderTwo from "../../components/HeaderTwo";
 import CheckoutProduct from "../../pages/Checkout/CheckoutProduct";
+
 
 const OrderHistory = () => {
     const { data } = useQuery(QUERY_USER);
@@ -14,7 +15,7 @@ const OrderHistory = () => {
 
   return (
     <div>
-      <Header />
+      <HeaderTwo />
       <div className="order_history">
         <h2>Viewing {user ? `${user.firstName}'s` : "your"} orders.</h2>
         {user?.orders ? user.orders.map((order) => (

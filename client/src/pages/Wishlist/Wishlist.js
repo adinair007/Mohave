@@ -1,6 +1,6 @@
 import React from "react";
 import "./Wishlist.css";
-import Header from "../../components/Header";
+import HeaderTwo from "../../components/HeaderTwo";
 import { useStateValue } from "../../StateProvider";
 import WishlistProduct from "./WishlistProduct";
 
@@ -9,7 +9,7 @@ const Wishlist = (event) => {
 
   return (
     <div>
-      <Header />
+      <HeaderTwo />
       <div className="wishlist">
         <div className="wishlist__left">
           <div>

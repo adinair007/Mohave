@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
 import "../Address/address.css";
-import Header from "../Header";
+import HeaderTwo from "../HeaderTwo";
 
 function Address() {
   const [{}, dispatch] = useStateValue();
@@ -37,7 +37,7 @@ function Address() {
 
   return (
     <div>
-      <Header />
+      <HeaderTwo />
       <div className="container">
         <h1>Shipping Address</h1>
       </div>
