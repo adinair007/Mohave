@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import Desert from "../../assets/Desert.jpg";
 import Header from "../../components/Header";
@@ -10,10 +10,19 @@ import "./Home.css";
 
 function Home() {
   const { loading, data } = useQuery(QUERY_ALL_PRODUCTS);
+  const [ searchTerm, setSearchTerm ] = useState("");
+
+  const productData = searchTerm?.length > 1 ? data.products.filter((product) => {
+    const searchFields =
+      `${product.name.toLowerCase()} ` +
+      `${product.price} ` +
+      `${product.image}`;
+    return searchFields.includes(searchTerm.toLowerCase());
+  }) : data?.products;
 
   return (
     <div>
-      <Header />
+      <Header searchValue={searchTerm} searchHandler={setSearchTerm} />
       <div className="home">
         <div className="home_container">
           <img className="home_image" src={Desert} alt="Desert art" />
@@ -21,7 +30,7 @@ function Home() {
             {loading ? (
               <div>Loading products</div>
             ) : (
-              data.products.map((product) => (
+              productData.map((product) => (
                 <Product
                   id={product._id}
                   title={product.name}
