@@ -10,7 +10,7 @@ import "./Header.css";
 import Search from "../SearchBar";
 
 
-const data = require("./MOCK_DATA.json");
+
 
 
 
@@ -55,10 +55,10 @@ export default function Header({searchValue, searchHandler}) {
               </Link>
           </div>
           
-          <form className="flex flex-col w-72">
+          <form className="header_search flex flex-col w-72">
           {/* <Search /> */}
           <input
-            className="border p-1 px-3 my-3"
+            className="search_input"
             name="productSearch"
             placeholder="Search Product"
             value={searchValue}
