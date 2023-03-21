@@ -1,15 +1,16 @@
 import React from "react";
-import Header from "../../components/Header";
+import head from "../../components/Header";
 import Subtotal from "../../components/Subtotal";
 import "./Checkout.css";
 import { useStateValue } from "../../StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
+import HeaderTwo from "../../components/HeaderTwo";
 
 function Checkout() {
   const [{ cart }, dispatch] = useStateValue();
   return (
     <div>
-      <Header />
+      <HeaderTwo />
       <div className="checkout">
         <div className="checkout__left">
           {/* <img className="checkout__ad" src="placeholder" alt="placeholder" /> */}

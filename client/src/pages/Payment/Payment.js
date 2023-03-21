@@ -4,7 +4,7 @@ import CheckoutProduct from "../Checkout/CheckoutProduct";
 import { getCartTotal } from "../../utils/reducer";
 import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import Header from "../../components/Header";
+import HeaderTwo from "../../components/HeaderTwo";
 import axios from "../../axios";
 import "./Payment.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -61,7 +61,7 @@ const Payment = () => {
 
   return (
     <div>
-      <Header />
+      <HeaderTwo />
       <div className="payment">
         <div className="payment_container">
           <h1>
