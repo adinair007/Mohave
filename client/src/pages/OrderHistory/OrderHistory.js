@@ -1,29 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_USER } from "../../utils/queries";
 import HeaderTwo from "../../components/HeaderTwo";
 import CheckoutProduct from "../../pages/Checkout/CheckoutProduct";
+import "./OrderHistory.css"
 
 const OrderHistory = () => {
   const { loading, error, data } = useQuery(QUERY_USER);
   const [orders, setOrders] = useState([]);
 
+  useEffect(() => {
+    if (data) {
+      fetch("/orders/get", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: data.user.email }),
+      })
+        .then((response) => response.json())
+        .then((data) => setOrders(data));
+    }
+  }, [data]);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   const { user } = data;
-
-  const fetchOrders = () => {
-    fetch("/orders/get", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: user.email }),
-    })
-      .then((response) => response.json())
-      .then((data) => setOrders(data));
-  };
 
   return (
     <div>
@@ -37,7 +40,7 @@ const OrderHistory = () => {
                 {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
               </h3>
               <div className="order_info">
-                {user.order.products.map((product) => (
+                {order.products.map((product) => (
                   <div key={product._id} className="product_info">
                     <CheckoutProduct
                       id={product._id}

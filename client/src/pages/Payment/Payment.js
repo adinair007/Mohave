@@ -23,7 +23,7 @@ const Payment = () => {
     if (!stripe || !elements) {
       return;
     }
-
+  
     const { clientSecret } = await fetch(
       `/payment/create?total=${Math.floor(getCartTotal(cart))}`,
       {
@@ -37,7 +37,7 @@ const Payment = () => {
         }),
       }
     ).then((response) => response.json());
-
+  
     const { paymentIntent } = await stripe
       .confirmCardPayment(clientSecret, {
         payment_method: {
@@ -63,12 +63,11 @@ const Payment = () => {
               dispatch({
                 type: "EMPTY_CART",
               });
-              navigate("/");
+              navigate("/orders");
             }
           })
           .catch((error) => console.log(error));
       })
-
       .catch((error) => console.log(error));
   };
 
