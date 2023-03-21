@@ -62,6 +62,7 @@ const Payment = () => {
           }),
         })
           .then((response) => {
+            console.log("RESPONSE", response);
             if (response.ok) {
               dispatch({
                 type: "EMPTY_CART",

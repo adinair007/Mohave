@@ -58,9 +58,10 @@ app.post("/orders/add", (req, res) => {
     products: products,
     price: price,
     address: address,
-    email: email,
+    email: address.userEmail,
   };
 
+  console.log("ORDER DETAIL: ", orderDetail);
   Orders.create(orderDetail, (err, result) => {
     if (err) {
       console.log(err);

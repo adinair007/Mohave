@@ -50,7 +50,7 @@ export const QUERY_CATEGORIES = gql`
 `;
 
 export const QUERY_USER = gql`
-  query getUser($user: ID!) {
+  query User {
     user {
       firstName
       lastName

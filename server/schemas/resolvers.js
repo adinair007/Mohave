@@ -8,13 +8,29 @@ const stripe = stripeInit(
 
 const resolvers = {
   Query: {
+    userByEmail: async (parent, { email }, context) => {
+      console.log("HELLO USER QUERY?")
+     
+        const user = await User.findOne({ email }).populate({
+          path: "orders.products",
+          populate: "category",
+        });
+
+        console.log("user", user);
+
+        user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
+
+        return user;
+    },
     user: async (parent, args, context) => {
+      console.log("HELLO USER QUERY?")
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
           path: "orders.products",
           populate: "category",
         });
 
+        console.log("user", user);
         user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
 
         return user;
