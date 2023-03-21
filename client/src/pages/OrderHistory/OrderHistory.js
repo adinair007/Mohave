@@ -1,42 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_USER } from "../../utils/queries";
 import HeaderTwo from "../../components/HeaderTwo";
 import CheckoutProduct from "../../pages/Checkout/CheckoutProduct";
 
-
 const OrderHistory = () => {
-    const { data } = useQuery(QUERY_USER);
-  let user;
+  const { loading, error, data } = useQuery(QUERY_USER);
+  const [orders, setOrders] = useState([]);
 
-  if (data) {
-    user = data.user;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  const { user } = data;
+
+  const fetchOrders = () => {
+    fetch("/orders/get", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: user.email }),
+    })
+      .then((response) => response.json())
+      .then((data) => setOrders(data));
+  };
 
   return (
     <div>
       <HeaderTwo />
       <div className="order_history">
-        <h2>Viewing {user ? `${user.firstName}'s` : "your"} orders.</h2>
-        {user?.orders ? user.orders.map((order) => (
-          <div key={order._id} className="order_container">
-            <h3>
-              {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
-            </h3>
-            <div className="order_info">
-              {order.products.map(({ _id, image, name, price }, product) => (
-                <div key={product} className="product_info">
-                  <CheckoutProduct
-                     id={product._id}
-                     title={product.name}
-                     price={product.price}
-                     image={product.image}
-                     rating={5}
-                   />
-                </div>
-              ))}
+        <h2>Viewing {user ? `${user.email}'s` : "your"} orders.</h2>
+        {user?.orders ? (
+          user.orders.map((order) => (
+            <div key={order._id} className="order_container">
+              <h3>
+                {new Date(parseInt(order.purchaseDate)).toLocaleDateString()}
+              </h3>
+              <div className="order_info">
+                {user.order.products.map((product) => (
+                  <div key={product._id} className="product_info">
+                    <CheckoutProduct
+                      id={product._id}
+                      title={product.name}
+                      price={product.price}
+                      image={product.image}
+                      rating={product.rating}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>)) : <div>No orders for this user.</div>}
+          ))
+        ) : (
+          <div>No orders for this user.</div>
+        )}
       </div>
     </div>
   );
