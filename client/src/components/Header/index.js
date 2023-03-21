@@ -7,6 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import CartIcon from "@material-ui/icons/ShoppingCart";
 import { useStateValue } from "../../StateProvider";
 import "./Header.css";
+import Search from "../SearchBar";
 
 
 const data = require("./MOCK_DATA.json");
@@ -14,25 +15,35 @@ const data = require("./MOCK_DATA.json");
 
 
 
-export default function Header() {
+export default function Header({searchValue, searchHandler}) {
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
     };
 
-    const [value, setValue] = useState("");
+    // const onChange = (event) => {
+    //     setValue(event.target.value);
+    // };
 
-    const onChange = (event) => {
-        setValue(event.target.value);
-    };
-
-    const onSearch = (searchTerm) => {
-        setValue(searchTerm);
-        console.log("search", searchTerm);
-    };
+    // const onSearch = (searchTerm) => {
+    //     setValue(searchTerm);
+    //     console.log("search", searchTerm);
+    // };
     const [{ cart }, dispatch] = useStateValue();
 
-    const dropDownStyle = data.length ? { display: 'block' } : { display: 'none' }
+    // const dropDownStyle = data.length ? { display: 'block' } : { display: 'none' }
+
+    // const [keyword, setKeyword] = useState('')
+
+//    const searchHandler = (e) => {
+//     e.preventDefault()
+
+//     if(keyword.trim()) {
+//       history.push(`/search/${keyword}`)
+//     } else {
+//       history.push('/')
+//     }
+//    }
 
 
 
@@ -43,33 +54,19 @@ export default function Header() {
                   <img className="header_logo" src={Logo} alt="Mojave Logo" />
               </Link>
           </div>
+          
+          <form className="flex flex-col w-72">
+          {/* <Search /> */}
+          <input
+            className="border p-1 px-3 my-3"
+            name="productSearch"
+            placeholder="Search Product"
+            value={searchValue}
+            onChange={(e) => searchHandler(e.target.value)}
+        />
+         </form>
 
-          <div className="header_search">
-              <input className="search_input" type="text" value={value} onChange={onChange} />
-              {/* <SearchIcon className="header_searchIcon" /> */}
-              <button onClick={() => onSearch(value)}> <SearchIcon className="header_searchIcon" /></button>
-              <div className="dropdown" style={dropDownStyle}>
-                {data
-                    .filter((item) => {
-                        const searchTerm = value.toLowerCase();
-                        const product = item.Item_name.toLowerCase();
-
-                        return ( searchTerm && product.startsWith(searchTerm) &&
-                            product !== searchTerm
-                        );
-                    })
-                    .slice(0, 10)
-                    .map((item) => (
-                        <div 
-                          onClick={() => onSearch(item.Item_name)}
-                          className="dropdown-row"
-                          key={item.Item_name}>
-
-                            {item.Item_name}
-                        </div>
-                    ))}
-            </div>   
-          </div>
+          
          
           <div className="header_nav">
               <Link to="/login">
@@ -114,6 +111,49 @@ export default function Header() {
 
 
 
+
+
+
+// import React from 'react'
+
+
+// const SearchBar = ({history}) => {
+//    const [keyword, setKeyword] = useState('')
+
+//    const searchHandler = (e) => {
+//     e.preventDefault()
+
+//     if(keyword.trim()) {
+//       history.push(`/search/${keyword}`)
+//     } else {
+//       history.push('/')
+//     }
+//    }
+  
+  
+//   return (
+//     <div>
+//      <form onSubmit={searchHandler}>
+//       <div className= "input-group">
+//         <input 
+//         type="text"
+//         id="search_field"
+//         classname="form-control"
+//         placeholder="Enter product Name..."
+//         onChange={(e) => setKeyword(e.target.value)}
+//         />
+//         <div className="input-group-append">
+//           <button id="search btn" className="btn">
+//             <i className="fa fa-search" aria-hidden="true"></i>
+//           </button>
+//         </div>
+//       </div>
+//      </form>
+//     </div>
+//   )
+// }
+
+// export default SearchBar;
 
 
 

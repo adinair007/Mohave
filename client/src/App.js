@@ -8,7 +8,6 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// import SearchBar from "./components/SearchBar";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import OrderHistory from "./pages/OrderHistory/OrderHistory";
@@ -17,6 +16,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import Footer from "./components/Footer";
 import Payment from "./pages/Payment/Payment";
 import Wishlist from "./pages/Wishlist/Wishlist";
+// import SearchBar from "./components/SearchBar"
 // import Success from "./pages/Success/Success";
 
 
@@ -55,6 +55,7 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home />} />
+              {/* <Route path="/Search" element={<SearchBar />} /> */}
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/wishlist" element={<Wishlist />} />
