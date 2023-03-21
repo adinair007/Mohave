@@ -77,7 +77,7 @@ const Signup = () => {
           <h5>Password</h5>
           <input
             className="form-input"
-            placeholder="******"
+            placeholder="Minimum of (5) characters"
             name="password"
             type="password"
             value={formState.password}

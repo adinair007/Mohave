@@ -5,13 +5,12 @@ import { getCartTotal } from "../../utils/reducer";
 import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import Header from "../../components/Header";
+import axios from "../../axios";
 import "./Payment.css";
-// import axios from "../../axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const Payment = () => {
-  const [{ cart, user }, dispatch] = useStateValue();
-  // const [clientSecret, setClientSecret] = useState(true);
+  const [{ cart, address, user }, dispatch] = useStateValue();
 
   const elements = useElements();
   const stripe = useStripe();
@@ -45,46 +44,20 @@ const Payment = () => {
       })
       .then((result) => {
         alert("Payment Successful");
+        axios.post("/orders/add", {
+          cart: cart,
+          price: getCartTotal(cart),
+          email: user?.email,
+          address: address,
+        });
+        dispatch({
+          type: "EMPTY_CART",
+        });
         navigate("/");
       })
+
       .catch((error) => console.log(error));
   };
-
-  // useEffect(() => {
-  //   // generate the special stripe secret which allows us to charge a customer
-  //   const getClientSecret = async () => {
-  //     const response = await axios({
-  //       method: "post",
-  //       // Stripe expects the total in a currencies subunits
-  //       url: `/payments/create?total=${getCartTotal(cart) * 100}`,
-  //     });
-  //     setClientSecret(response.data.clientSecret);
-  //   };
-
-  //   getClientSecret();
-  // }, [cart]);
-  // console.log("THE SECRET IS >>>", clientSecret);
-  // console.log("👱", user);
-  // // const handleChange = (event) => {
-  // //   setDisabled(event.empty);
-  // //   setError(event.error ? event.error.message : "");
-  // // };
-
-  // const confirmPayment = async (event) => {
-  //   event.preventDefault();
-
-  //   await stripe
-  //     .confirmCardPayment(clientSecret, {
-  //       payment_method: {
-  //         card: elements.getElement(CardElement),
-  //       },
-  //     })
-  //     .then((result) => {
-  //       alert("Payment Successful");
-  //       navigate("/");
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
   return (
     <div>
@@ -100,9 +73,13 @@ const Payment = () => {
               <h3>Delivery Address</h3>
             </div>
             <div className="payment_address">
-              <p>email</p>
-              <p>123 Fire Lane</p>
-              <p>Denton, TX</p>
+              <p>{address.fullName}</p>
+              <p>{address.userEmail}</p>
+              <p>{address.userAddress}</p>
+              <p>{address.userCity}</p>
+              <p>{address.userState}</p>
+              <p>{address.userZip}</p>
+              <p>{address.userPhone}</p>
             </div>
           </div>
 
@@ -139,18 +116,17 @@ const Payment = () => {
                     thousandSeparator={true}
                     prefix={"$"}
                   />
-                  <button
-                    onClick={handleSubmit}
-                    // disabled={processing || disabled || succeeded}
-                  >
-                    <span>Buy Now</span>
-                  </button>
                 </div>
                 {/* {error && <div>{error}</div>} */}
               </form>
             </div>
           </div>
         </div>
+        <button onClick={handleSubmit}>
+          <span>
+            <strong>Buy Now</strong>
+          </span>
+        </button>
       </div>
     </div>
   );

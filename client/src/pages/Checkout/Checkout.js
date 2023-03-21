@@ -12,7 +12,7 @@ function Checkout() {
       <Header />
       <div className="checkout">
         <div className="checkout__left">
-          <img className="checkout__ad" src="placeholder" alt="placeholder" />
+          {/* <img className="checkout__ad" src="placeholder" alt="placeholder" /> */}
 
           <div>
             <h2 className="checkout__title">Your Shopping Cart</h2>
@@ -31,7 +31,7 @@ function Checkout() {
 
         <div className="checkout__right">
           <Subtotal />
-          <h2>Subtotal goes here</h2>
+          {/* <h2>Subtotal goes here</h2> */}
         </div>
       </div>
     </div>

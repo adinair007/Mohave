@@ -10,6 +10,7 @@ const typeDefs = gql`
     name: String!
     email: String!
     password: String!
+    orders: [Order]
   }
 
   type Category {
@@ -22,7 +23,7 @@ const typeDefs = gql`
     name: String
     description: String
     image: String
-    quantity: Int
+    rating: Int
     price: Float
     category: Category
   }

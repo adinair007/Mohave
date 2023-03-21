@@ -34,6 +34,8 @@
   padding: 5px;
   height: 35px !important;
   width: 40px;
+  border: #e7064a;
+  border-radius: 2px;
   border-color: #e7064a;
   background-color: #e7064a;
   color: whitesmoke;
