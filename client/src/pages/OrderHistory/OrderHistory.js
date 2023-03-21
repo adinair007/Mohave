@@ -11,12 +11,12 @@ const OrderHistory = () => {
 
   useEffect(() => {
     if (data) {
-      fetch("/orders/get", {
+      fetch(`/orders/get?email=${data.user.email}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: data.user.email }),
+      // query: JSON.stringify({ email: data.user.email }),
       })
         .then((response) => response.json())
         .then((data) => setOrders(data));

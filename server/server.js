@@ -49,10 +49,10 @@ app.post("/payment/create", async (req, res) => {
 });
 
 app.post("/orders/add", (req, res) => {
-  const products = req.query.cart;
-  const price = req.query.price;
-  const email = req.query.email;
-  const address = req.query.address;
+  const products = req.body.cart;
+  const price = req.body.price;
+  const email = req.body.email;
+  const address = req.body.address;
 
   const orderDetail = {
     products: products,

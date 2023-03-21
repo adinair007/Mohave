@@ -3,6 +3,8 @@ import CurrencyFormat from "react-currency-format";
 import CheckoutProduct from "../Checkout/CheckoutProduct";
 import { useQuery } from "@apollo/client";
 import { QUERY_USER } from "../../utils/queries";
+import { useMutation } from "@apollo/client";
+import { ADD_ORDER } from "../../utils/mutations";
 import { getCartTotal } from "../../utils/reducer";
 import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
@@ -13,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Payment = () => {
   const [{ cart, address, }, dispatch] = useStateValue();
   const {user} = useQuery(QUERY_USER);
+  const {addOrder} = useMutation(ADD_ORDER);
 
   const elements = useElements();
   const stripe = useStripe();
@@ -52,7 +55,7 @@ const Payment = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            cart: cart,
+            cart: cart.map(product => (product.id)),
             price: getCartTotal(cart),
             email: user?.email,
             address: address,
