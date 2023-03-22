@@ -12,7 +12,7 @@ function Home() {
   const { loading, data } = useQuery(QUERY_ALL_PRODUCTS);
   const [ searchTerm, setSearchTerm ] = useState("");
 
-  const productData = searchTerm?.length > 1 ? data.products.filter((product) => {
+  const productData = searchTerm?.length > 2? data.products.filter((product) => {
     const searchFields =
       `${product.name.toLowerCase()} ` +
       `${product.price} ` +

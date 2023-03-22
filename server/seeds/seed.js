@@ -36,6 +36,23 @@ db.once("open", async () => {
       rating: 5,
     },
     {
+      name: "LEGO Star Wars Imperial TIE Fighter 75300 Building Toy with Stormtrooper",
+      description: "LEGO Star Wars Imperial TIE Fighter",
+      image: "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/81qkzvK+HTL._AC_SL1500_.jpg",
+      category: categories[4]._id,
+      price: 339.95,
+      rating: 5,
+    },
+    {
+      name: "LEGO Star Wars Millennium Falcon 75257 Starship Construction Set",
+      description: "LEGO Star Wars Millennium Falcon 75257 Starship",
+      image: "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T2/images/I/81PhO-kyPuL._AC_SL1500_.jpg",
+      category: categories[4]._id,
+      price: 339.95,
+      rating: 5,
+    },
+  
+    {
       name: "SAMSUNG 49” Odyssey G9 Gaming Monitor",
       category: categories[2]._id,
       description:
