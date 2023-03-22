@@ -74,8 +74,8 @@ export default function Header() {
           <div className="header_nav">
               <Link to="/login">
                   <div className="header_option">
-                      <span className="header_optionl1">Hello Guest</span>
-                      <span className="header_optionl2">Sign In</span>
+                      <span className="header_optionl1">Hello {!Auth.loggedIn() ? 'Guest' : 'Friend!'}</span>
+                      <span className="header_optionl2">{!Auth.loggedIn() ? 'Sign In' : 'Sign Out'}</span>
                   </div>
               </Link>
               
