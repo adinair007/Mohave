@@ -19,6 +19,7 @@ const Login = (props) => {
       ...formState,
       [name]: value,
     });
+
   };
 
   // submit form
@@ -31,6 +32,7 @@ const Login = (props) => {
       });
 
       Auth.login(data.login.token);
+      console.log("LOGGED IN")
     } catch (e) {
       console.error(e);
     }

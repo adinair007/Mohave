@@ -3,6 +3,7 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const { authMiddleware } = require("./utils/auth");
 const { typeDefs, resolvers } = require("./schemas");
+const Orders = require("./models/Order");
 
 const cors = require("cors");
 const db = require("./config/connection");
@@ -44,6 +45,41 @@ app.post("/payment/create", async (req, res) => {
 
   res.json({
     clientSecret: payment.client_secret,
+  });
+});
+
+app.post("/orders/add", (req, res) => {
+  const products = req.body.cart;
+  const price = req.body.price;
+  const email = req.body.email;
+  const address = req.body.address;
+
+  const orderDetail = {
+    products: products,
+    price: price,
+    address: address,
+    email: email,
+  };
+
+  Orders.create(orderDetail, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("order added to database >> ", result);
+    }
+  });
+});
+
+app.post("/orders/get", (req, res) => {
+  const email = req.query.email;
+
+  Orders.find((err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const userOrders = result.filter((order) => order.email === email);
+      res.send(userOrders);
+    }
   });
 });
 

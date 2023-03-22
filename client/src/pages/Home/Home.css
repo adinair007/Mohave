@@ -8,6 +8,7 @@
 
 .home_row {
   display: grid;
+  
   grid-template-columns: repeat(2,1fr);
   grid-template-rows: repeat(6, 1fr);
   justify-items: center;
@@ -27,4 +28,13 @@
   z-index: -1;
   margin-bottom: -100px;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.6));
+}
+
+
+.product {
+  border-radius: 32px;
+  padding: 10px;
+  margin: 5px;
+  /* box-shadow: 3px 3px rgb(248, 223, 247), -1em 0 .4em rgb(255, 250, 177); */
+
 }
