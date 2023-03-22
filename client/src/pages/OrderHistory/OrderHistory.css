@@ -1,0 +1,13 @@
+.order_history {
+    display: flex;
+    padding: 20px;
+    background-color: white;
+    height: max-content;
+  }
+  
+  .order_history > h2 {
+    padding: 10px;
+    margin-right: 10px;
+    border-bottom: 1px solid lightgray;
+  }
+  

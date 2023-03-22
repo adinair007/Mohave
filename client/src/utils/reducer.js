@@ -62,6 +62,12 @@ const reducer = (state, action) => {
         address: { ...action.item },
       };
 
+      // case "SET_USER":
+      // return {
+      //   ...state,
+      //   user: action.user,
+      // };
+
     case "EMPTY_CART":
       return {
         ...state,

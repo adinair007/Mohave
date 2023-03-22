@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import CurrencyFormat from "react-currency-format";
 import CheckoutProduct from "../Checkout/CheckoutProduct";
+import { useQuery } from "@apollo/client";
+import { QUERY_USER } from "../../utils/queries";
+import { useMutation } from "@apollo/client";
+import { ADD_ORDER } from "../../utils/mutations";
 import { getCartTotal } from "../../utils/reducer";
 import { useStateValue } from "../../StateProvider";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import HeaderTwo from "../../components/HeaderTwo";
-import axios from "../../axios";
 import "./Payment.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const Payment = () => {
-  const [{ cart, address, user }, dispatch] = useStateValue();
+  const [{ cart, address, }, dispatch] = useStateValue();
+  const {user} = useQuery(QUERY_USER);
+  const {addOrder} = useMutation(ADD_ORDER);
 
   const elements = useElements();
   const stripe = useStripe();
@@ -21,7 +26,7 @@ const Payment = () => {
     if (!stripe || !elements) {
       return;
     }
-
+  
     const { clientSecret } = await fetch(
       `/payment/create?total=${Math.floor(getCartTotal(cart))}`,
       {
@@ -35,7 +40,7 @@ const Payment = () => {
         }),
       }
     ).then((response) => response.json());
-
+  
     const { paymentIntent } = await stripe
       .confirmCardPayment(clientSecret, {
         payment_method: {
@@ -44,19 +49,34 @@ const Payment = () => {
       })
       .then((result) => {
         alert("Payment Successful");
-        axios.post("/orders/add", {
-          cart: cart,
-          price: getCartTotal(cart),
-          email: user?.email,
-          address: address,
-        });
         dispatch({
           type: "EMPTY_CART",
         });
         navigate("/");
       })
-
-      .catch((error) => console.log(error));
+        // fetch("/orders/add", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     cart: cart.map(product => (product.id)),
+        //     price: getCartTotal(cart),
+        //     email: user?.email,
+        //     address: address,
+        //   }),
+        // })
+        //   .then((response) => {
+        //     if (response.ok) {
+        //       dispatch({
+        //         type: "EMPTY_CART",
+        //       });
+        //       navigate("/orders");
+        //     }
+        //   })
+          // .catch((error) => console.log(error));
+      // })
+      // .catch((error) => console.log(error));
   };
 
   return (
