@@ -23,6 +23,17 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
+// ---> Jon added 
+//     users: async (parent, args, context) => {
+//       const allUsers = await User.find({}).populate({
+//         path: "orders.products",
+//         populate: "category",
+//       });
+
+//       return allUsers;
+//     }
+//   },
+
     categories: async () => {
       return await Category.find();
     },
