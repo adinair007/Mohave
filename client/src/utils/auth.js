@@ -5,6 +5,11 @@ class AuthService {
     return decode(this.getToken());
   }
 
+  // ---> Jon added
+  // getUsername() {
+  //   return localStorage.getItem("username");
+  // }
+
   loggedIn() {
     const token = this.getToken();
     // If there is a token and it's not expired, return `true`
@@ -30,10 +35,20 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
+  // ---> Jon changed from code block 
+  // =============================================
   login(idToken) {
     localStorage.setItem('id_token', idToken);
     window.location.assign('/');
   }
+
+  // login(idToken, user) {
+  //   console.log("USER?", user);
+  //   localStorage.setItem("username", user.name);
+  //   localStorage.setItem('id_token', idToken);
+  //   window.location.assign('/');
+  // }
+  // =============================================
 
   logout() {
     localStorage.removeItem('id_token');
