@@ -10,3 +10,8 @@
   margin-right: 10px;
   border-bottom: 1px solid lightgray;
 }
+
+.wishlist_left {
+  display: flex;
+  flex-direction: column;
+}

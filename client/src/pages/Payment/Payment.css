@@ -52,3 +52,24 @@
   border-color: #9c0216 #b40427 #d1051d;
   color: whitesmoke;
 }
+
+
+@media  only screen and (max-width: 600px) {
+    .payment_container {
+      width: 100%;
+    } 
+
+    .payment_title {
+      font-size: small;
+    }
+
+    .payment_section h3 {
+      font-size: 15px;
+    }
+
+    .payment_details {
+      padding: 25px;
+      align-items: center;
+      justify-content: center;
+    }
+}

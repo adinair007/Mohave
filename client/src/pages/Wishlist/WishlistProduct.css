@@ -8,6 +8,16 @@
     padding-left: 20px;
 }
 
+.wishlistCart_button {
+    background: #e7064a;
+  border: 1px solid;
+  border-radius: 2px;
+  margin-top: 10px;
+  border-color: #9c0216 #b40427 #d1051d;
+  color: whitesmoke;
+  width: 150px;
+}
+
 .remove_button {
     background: rgb(255, 230, 161);
     border: 1px solid;
@@ -15,7 +25,7 @@
     margin-top: 10px;
     border-color: black;
     color: black;
-    width: 50%;
+    width: 150px;
 }
 
 .wishlistProduct_image {
@@ -31,4 +41,11 @@
 .wishlistProduct_title {
     font-size: 17px;
     font-weight: 600;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .wishlistProduct {
+        display: flex;;
+    }
 }

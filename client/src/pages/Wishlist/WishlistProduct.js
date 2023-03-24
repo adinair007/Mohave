@@ -44,7 +44,7 @@ const WishlistProduct = ({ id, image, title, price, rating }) => {
             ))}
         </div>
         <div>
-        <button className="cart_button" onClick={addToCart}>Add to Cart</button>
+        <button className="wishlistCart_button" onClick={addToCart}>Add to Cart</button>
         </div>
         <button className="remove_button" onClick={removeFromList}>Remove from Wishlist</button>  
     </div>
