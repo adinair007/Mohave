@@ -13,6 +13,12 @@ body {
   
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* code that is here, until the first @media block, will apply to any screen size */
 #somethingorother {
   width: 800px ;

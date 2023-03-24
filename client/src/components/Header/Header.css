@@ -16,21 +16,22 @@
   margin: 0 2px;
 }
 
-.header_search {
+.search_bar {
   display: flex;
   flex: 1;
   align-items: center;
   border-radius: 24px;
+  width: 95%;
 }
 
-.search_input {
+/* .search_input {
   height: 12px;
   padding: 10px;
   border: none;
   width: 95%;
-}
+} */
 
-.header_search > button {
+/* .search_bar > button {
   padding: 5px;
   height: 35px !important;
   width: 40px;
@@ -39,7 +40,7 @@
   border-color: #e7064a;
   background-color: #e7064a;
   color: whitesmoke;
-}
+} */
 
 .header_nav {
   display: flex;
@@ -76,7 +77,17 @@
   margin-right: 10px;
 }
 
-.header_search .dropdown {
+.header_option:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.header_optionCart:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+/* .search_bar .dropdown {
   position: absolute;
   top: 55px;
   width: 795px;
@@ -86,4 +97,89 @@
 
 .drop_down {
   background-color: white;
+} */
+
+.hamburger_menu {
+  margin: auto 0;
+  display: none;
+  cursor: pointer;
+}
+.hamburger_menu div {
+  width: 35px;
+  height: 3px;
+  background-color: whitesmoke;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.open .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.open .bar2 {
+  opacity: 0;
+}
+
+.open .bar3 {
+  -webkit-transform: rotate(45deg) translate(-6px, -8px);
+  transform: rotate(45deg) translate(-6px, -8px);
+}
+
+.open .mobile_menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 400%;
+  background-color: #060644;
+}
+
+.mobile_menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  height: calc(100vh - 50px);
+  width: 100px;
+}
+
+.mobile_option {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Raleway';
+  font-weight: 800;
+  font-size: 20px;
+  padding: 20px;
+  justify-content: center;
+  width: auto;
+  margin-right: 20px;
+  align-items: center;
+  color: whitesmoke;
+}
+
+@media only screen and (max-width: 600px) {
+  .header_nav {
+    display: none;
+  }
+
+  .hamburger_menu {
+    display: block;
+    width: 50px;
+  }
+
+  .header_logo {
+    display: flex;
+    width: 100%;
+    height: 200px;
+  }
+
+  .search_bar {
+    /* height: 200px;
+    width: 500px; */
+    padding: 10px;
+    display: flex;
+    flex: 1;
+  }
 }
