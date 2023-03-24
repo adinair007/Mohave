@@ -28,6 +28,11 @@
     width: 150px;
 }
 
+.wishlistCart_button:hover, .remove_button:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
 .wishlistProduct_image {
     object-fit: contain;
     width: 180px;
