@@ -44,93 +44,140 @@ export default function HeaderTwo({ searchValue, searchHandler }) {
   //     }
   //    }
 
-  return (
-    <div className="header">
-      <div>
-        <Link to="/">
-          <img className="header_logo" src={Logo} alt="Mojave Logo" />
-        </Link>
-      </div>
-
-      {/* <form className="flex flex-col w-72"> */}
-      {/* <Search /> */}
-      {/* <input
-            className="border p-1 px-3 my-3"
-            name="productSearch"
-            placeholder="Search Product"
-            value={searchValue}
-            onChange={(e) => searchHandler(e.target.value)}
-        />
-         </form> */}
-
-      <div className="header_nav">
-        <Link to="/login">
-          <div className="header_option">
-            <span className="header_optionl1">Hello Guest</span>
-            <span className="header_optionl2">Sign In</span>
+  function showNavigation() {
+    if (Auth.loggedIn()) {
+      return (
+        <div className="header">
+          <div>
+            <Link to="/">
+              <img className="header_logo" src={Logo} alt="Mojave Logo" />
+            </Link>
           </div>
-        </Link>
+          <nav>
+            <div className="header_nav">
+              <Link to="/" onClick={() => Auth.logout()}>
+                <div className="header_option">
+                  <span className="header_optionl1">Hello Friend!</span>
+                  <span className="header_optionl2">Sign Out</span>
+                </div>
+              </Link>
 
-        <Link to="/wishlist">
-          <div className="header_option">
-            <span className="header_optionl1">Your</span>
-            <span className="header_optionl2">Wishlist</span>
-          </div>
-        </Link>
-
-        <Link to="/orders">
-          <div className="header_option">
-            <span className="header_optionl1">Returns</span>
-            <span className="header_optionl2">& Orders</span>
-          </div>
-        </Link>
-
-        <Link to="/checkout">
-          <div className="header_optionCart">
-            <CartIcon />
-            <span className="header_optionl2 header_cartCount">
-              {cart?.length}
-            </span>
-          </div>
-        </Link>
-      </div>
-       {/* Mobile Menu */}
-       <nav ref={navRef}>
-        <div onClick={toggleMobileMenu} className="hamburger_menuTwo">
-          <div className="bar1"></div>
-          <div className="bar2"></div>
-          <div className="bar3"></div>
-          <ul className="mobile_menu">
-            <li>
               <Link to="/wishlist">
-                <span className="mobile_option">Wishlist</span>
+                <div className="header_option">
+                  <span className="header_optionl1">Your</span>
+                  <span className="header_optionl2">Wishlist</span>
+                </div>
               </Link>
-            </li>
-            <li>
+
               <Link to="/orders">
-                <span className="mobile_option">Returns & Orders</span>
+                <div className="header_option">
+                  <span className="header_optionl1">Returns</span>
+                  <span className="header_optionl2">& Orders</span>
+                </div>
               </Link>
-            </li>
-            <li>
+
               <Link to="/checkout">
-                <span className="mobile_option">
-                  <span className="cart_icon">
-                    Cart <CartIcon />
-                  <span className="header_cartCount">{cart?.length}</span>
-                </span>
-                </span>
+                <div className="header_optionCart">
+                  <CartIcon />
+                  <span className="header_optionl2 header_cartCount">
+                    {cart?.length}
+                  </span>
+                </div>
               </Link>
-            </li>
-            <li>
-          <Link to="/login">
-            <span className="mobile_option">
-              {!Auth.loggedIn() ? "Sign In" : "Sign Out"}
-            </span>
-        </Link>
-          </li>
-          </ul>
+            </div>
+          </nav>
+          {/* Mobile Menu */}
+          <nav ref={navRef}>
+            <div onClick={toggleMobileMenu} className="hamburger_menuTwo">
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
+              <ul className="mobile_menu">
+                <li>
+                  <Link to="/wishlist">
+                    <span className="mobile_option">Wishlist</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/orders">
+                    <span className="mobile_option">Returns & Orders</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/checkout">
+                    <span className="mobile_option">
+                      <span className="cart_icon">
+                        Cart <CartIcon />
+                        <span className="header_cartCount">{cart?.length}</span>
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" onClick={() => Auth.logout()}>
+                    <span className="mobile_option">Sign Out</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
         </div>
-      </nav>
-    </div>
-  );
+      );
+    } else {
+      return (
+        <div className="header">
+          <div>
+            <Link to="/">
+              <img className="header_logo" src={Logo} alt="Mojave Logo" />
+            </Link>
+          </div>
+          <nav>
+            <div className="header_nav">
+              <Link to="/login">
+                <div className="header_option">
+                  <span className="header_optionl1">Hello Guest!</span>
+                  <span className="header_optionl2">Sign In</span>
+                </div>
+              </Link>
+              <Link to="/checkout">
+                <div className="header_optionCart">
+                  <CartIcon />
+                  <span className="header_optionl2 header_cartCount">
+                    {cart?.length}
+                  </span>
+                </div>
+              </Link>
+            </div>
+          </nav>
+          {/* Mobile Menu */}
+          <nav ref={navRef}>
+            <div onClick={toggleMobileMenu} className="hamburger_menuTwo">
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
+              <ul className="mobile_menu">
+                <li>
+                  <Link to="/checkout">
+                    <span className="mobile_option">
+                      <span className="cart_icon">
+                        Cart <CartIcon />
+                        <span className="header_cartCount">{cart?.length}</span>
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/login">
+                    <span className="mobile_option">Sign In</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      );
+    }
+  }
+
+  return <div>{showNavigation()}</div>;
 }
