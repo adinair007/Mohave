@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
 import Logo from "../../assets/Mojave2.png";
 import Auth from "../../utils/auth";
 import CartIcon from "@material-ui/icons/ShoppingCart";
@@ -99,6 +98,7 @@ export default function Header({ searchValue, searchHandler }) {
           </Link>
         </div>
       </nav>
+      {/* Mobile Menu */}
       <nav ref={navRef}>
         <div onClick={toggleMobileMenu} className="hamburger_menu">
           <div className="bar1"></div>
