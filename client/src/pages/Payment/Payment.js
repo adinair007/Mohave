@@ -49,34 +49,34 @@ const Payment = () => {
       })
       .then((result) => {
         alert("Payment Successful");
-        dispatch({
-          type: "EMPTY_CART",
-        });
-        navigate("/");
-      })
-        // fetch("/orders/add", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     cart: cart.map(product => (product.id)),
-        //     price: getCartTotal(cart),
-        //     email: user?.email,
-        //     address: address,
-        //   }),
-        // })
-        //   .then((response) => {
-        //     if (response.ok) {
-        //       dispatch({
-        //         type: "EMPTY_CART",
-        //       });
-        //       navigate("/orders");
-        //     }
-        //   })
-          // .catch((error) => console.log(error));
+      //   dispatch({
+      //     type: "EMPTY_CART",
+      //   });
+      //   navigate("/");
       // })
-      // .catch((error) => console.log(error));
+        fetch("/orders/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cart: cart.map(product => (product.id)),
+            price: getCartTotal(cart),
+            email: user?.email,
+            address: address,
+          }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              dispatch({
+                type: "EMPTY_CART",
+              });
+              navigate("/orders");
+            }
+          })
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

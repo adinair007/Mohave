@@ -78,12 +78,12 @@ export default function Header({ searchValue, searchHandler }) {
                 </div>
               </Link>
 
-              <Link to="/orders">
+              {/* <Link to="/orders">
                 <div className="header_option">
                   <span className="header_optionl1">Returns</span>
                   <span className="header_optionl2">& Orders</span>
                 </div>
-              </Link>
+              </Link> */}
 
               <Link to="/checkout">
                 <div className="header_optionCart">
@@ -108,9 +108,9 @@ export default function Header({ searchValue, searchHandler }) {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/orders">
+                  {/* <Link to="/orders">
                     <span className="mobile_option">Returns & Orders</span>
-                  </Link>
+                  </Link> */}
                 </li>
                 <li>
                   <Link to="/checkout">
